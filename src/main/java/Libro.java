@@ -2,16 +2,16 @@ public class Libro {
     private String titulo;
     private String autor;
     private String genero;
-    private String ISBN;
+    private String isbn;
     private int cantidadDisponible;
     private boolean disponible;
 
-    public Libro(String titulo, String autor, String genero, String ISBN,
+    public Libro(String titulo, String autor, String genero, String isbn,
                    int cantidadDisponible, boolean disponible) {
         this.titulo = titulo;
         this.autor = autor;
         this.genero = genero;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.cantidadDisponible = cantidadDisponible;
         this.disponible = disponible;
     }
@@ -29,7 +29,7 @@ public class Libro {
     }
 
     public String getISBN() {
-        return ISBN;
+        return isbn;
     }
 
     public int getCantidadDisponible() {
@@ -53,7 +53,7 @@ public class Libro {
     }
 
     public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+        this.isbn = ISBN;
     }
 
     public void setCantidadDisponible(int cantidadDisponible) {
@@ -64,10 +64,39 @@ public class Libro {
         this.disponible = disponible;
     }
 
+    public void prestar(String isbn) {
+        if (this.isbn.equals(isbn)) {
+            if (this.cantidadDisponible != 0) {
+                this.cantidadDisponible -= 1;
+                if (this.cantidadDisponible == 0) {
+                    this.disponible = false;
+                }
+            }
+        }
+    }
+
+    public void devolver(String isbn) {
+        if (this.isbn.equals(isbn)) {
+            this.cantidadDisponible += 1;
+            if (this.cantidadDisponible == 1) {
+                this.disponible = true;
+            }
+        }
+    }
+
+    public String mostrarInfo(String isbn) {
+        if (this.isbn.equals(isbn)) {
+            return "Título: "+this.titulo+", Autor: "+this.autor+", Género: "+this.genero+
+                    ", ISBN: "+this.isbn+ ", Número disponible: " +this.cantidadDisponible+
+                    ", Disponible: " +this.disponible;
+        }
+        return null;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Título: "+this.titulo+", Autor: "+this.autor+", Género: "+this.genero+
-                ", ISBN: "+this.ISBN+ ", Número disponible: " +this.cantidadDisponible+
+                ", ISBN: "+this.isbn+ ", Número disponible: " +this.cantidadDisponible+
                 ", Disponible: " +this.disponible;
     }
 }
