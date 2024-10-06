@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class Principal {
-    private Biblioteca bibliotecaCentral;
 
     public static void main(String[] args) {
         Principal principal = new Principal();
@@ -9,61 +8,63 @@ public class Principal {
     }
 
     public void iniciarBiblioteca() {
-        definirTodo();
-        mostrarLibrosDisponibles();
-        prestarLibro("Beastars - Vol 2");
-        devolverLibro("Dr. Stone - Vol 2");
-        buscarLibroPorTitulo("The Promised Neverland - Vol 18");
-        buscarLibrosPorAutor("Gosho Aoyama");
-        eliminarLibro("Beastars - Vol 2");
+        Biblioteca bibliotecaCentral = definirTodo();
+        mostrarLibrosDisponibles(bibliotecaCentral);
+        prestarLibro(bibliotecaCentral, "Beastars - Vol 2");
+        devolverLibro(bibliotecaCentral, "Dr. Stone - Vol 2");
+        buscarLibroPorTitulo(bibliotecaCentral, "The Promised Neverland - Vol 18");
+        buscarLibrosPorAutor(bibliotecaCentral, "Gosho Aoyama");
+        eliminarLibro(bibliotecaCentral, "Beastars - Vol 2");
     }
 
-    public void definirTodo() {
-        bibliotecaCentral = new Biblioteca();
+    public Biblioteca definirTodo() {
+        Biblioteca bibliotecaCentral = new Biblioteca();
 
-        agregarLibro("Beastars - Vol 2", "Paru Itagaki", "Seinen",
+        agregarLibro(bibliotecaCentral, "Beastars - Vol 2", "Paru Itagaki", "Seinen",
                 "978-84-18450-05-1", 4);
-        agregarLibro("The Promised Neverland - Vol 18", "Kaiu Shirai",
+        agregarLibro(bibliotecaCentral, "The Promised Neverland - Vol 18", "Kaiu Shirai",
                 "Shounen", "978-84-18645-35-8", 15);
-        agregarLibro("Dr. Stone - Vol 2", "Riichiro Inagaki", "Shounen",
+        agregarLibro(bibliotecaCentral, "Dr. Stone - Vol 2", "Riichiro Inagaki", "Shounen",
                 "978-1-9747-0262-6", 1);
-        agregarLibro("Yu-Gi-Oh! Vol 2", "Kazuki Takahashi", "Shounen",
+        agregarLibro(bibliotecaCentral, "Yu-Gi-Oh! Vol 2", "Kazuki Takahashi", "Shounen",
                 "978-607-568-114-6", 0);
-        agregarLibro("Detective Conan - Vol 2.2", "Gosho Aoyama", "Shounen",
+        agregarLibro(bibliotecaCentral, "Detective Conan - Vol 2.2", "Gosho Aoyama", "Shounen",
                 "4830826790", 0);
-        agregarLibro("Detective Conan - Vol 2.1", "Gosho Aoyama", "Shounen",
+        agregarLibro(bibliotecaCentral, "Detective Conan - Vol 2.1", "Gosho Aoyama", "Shounen",
                 "1167882574", 4);
-        agregarLibro("Detective Conan - Vol 1.2", "Gosho Aoyama", "Shounen",
+        agregarLibro(bibliotecaCentral, "Detective Conan - Vol 1.2", "Gosho Aoyama", "Shounen",
                 "0419352622", 1);
-        agregarLibro("Detective Conan - Vol 1.1", "Gosho Aoyama", "Shounen",
+        agregarLibro(bibliotecaCentral, "Detective Conan - Vol 1.1", "Gosho Aoyama", "Shounen",
                 "1693607498", 9);
+
+        return bibliotecaCentral;
     }
 
-    public void agregarLibro(String titulo, String autor, String genero, String isbn, int cantidad) {
+    public void agregarLibro(Biblioteca biblioteca, String titulo, String autor, String genero, String isbn, int cantidad) {
         Libro libro = new Libro(titulo, autor, genero, isbn, cantidad, cantidad > 0);
-        bibliotecaCentral.agregarLibro(libro);
+        biblioteca.agregarLibro(libro);
     }
 
-    public void mostrarLibrosDisponibles() {
+    public void mostrarLibrosDisponibles(Biblioteca biblioteca) {
         System.out.println("Libros disponibles:");
-        bibliotecaCentral.mostrarLibrosDisponibles();
+        biblioteca.mostrarLibrosDisponibles();
     }
 
-    public void prestarLibro(String titulo) {
+    public void prestarLibro(Biblioteca biblioteca, String titulo) {
         System.out.println("Se ha solicitado '" + titulo + "'...");
-        bibliotecaCentral.prestarLibro(titulo);
-        mostrarLibrosDisponibles();
+        biblioteca.prestarLibro(titulo);
+        mostrarLibrosDisponibles(biblioteca);
     }
 
-    public void devolverLibro(String titulo) {
+    public void devolverLibro(Biblioteca biblioteca, String titulo) {
         System.out.println("Se está devolviendo '" + titulo + "'...");
-        bibliotecaCentral.devolverLibro(titulo);
-        mostrarLibrosDisponibles();
+        biblioteca.devolverLibro(titulo);
+        mostrarLibrosDisponibles(biblioteca);
     }
 
-    public void buscarLibroPorTitulo(String titulo) {
+    public void buscarLibroPorTitulo(Biblioteca biblioteca, String titulo) {
         System.out.println("Buscando '" + titulo + "'...");
-        Libro encontrado = bibliotecaCentral.buscarLibroPorTitulo(titulo);
+        Libro encontrado = biblioteca.buscarLibroPorTitulo(titulo);
         if (encontrado != null) {
             System.out.println("Libro encontrado: " + encontrado.mostrarInfo());
         } else {
@@ -71,9 +72,9 @@ public class Principal {
         }
     }
 
-    public void buscarLibrosPorAutor(String autor) {
-        System.out.println("Buscando...");
-        ArrayList<Libro> librosDelEscritor = bibliotecaCentral.buscarLibroPorAutor(autor);
+    public void buscarLibrosPorAutor(Biblioteca biblioteca, String autor) {
+        System.out.println("Buscando libros del autor '" + autor + "'...");
+        ArrayList<Libro> librosDelEscritor = biblioteca.buscarLibroPorAutor(autor);
         if (!librosDelEscritor.isEmpty()) {
             for (Libro libro : librosDelEscritor) {
                 System.out.println(libro.mostrarInfo());
@@ -83,12 +84,11 @@ public class Principal {
         }
     }
 
-    public void eliminarLibro(String titulo) {
+    public void eliminarLibro(Biblioteca biblioteca, String titulo) {
         System.out.println("Eliminando '" + titulo + "' de la biblioteca...");
-        bibliotecaCentral.eliminarLibro(titulo);
+        biblioteca.eliminarLibro(titulo);
         System.out.println("Libro eliminado con éxito");
         System.out.println("Biblioteca actualizada: ");
-        mostrarLibrosDisponibles();
+        mostrarLibrosDisponibles(biblioteca);
     }
 }
-

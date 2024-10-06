@@ -10,15 +10,14 @@ public class Biblioteca {
     }
 
     public void mostrarLibrosDisponibles() {
-        System.out.println("Libros disponibles en " + nombre + ":");
-        boolean hayLibrosDisponibles = false;
-        for (Libro libro : libros) {
-            if (libro.getCantidadDisponible() > 0) {
-                System.out.println(libro);
-                hayLibrosDisponibles = true;
+        boolean hayLibros = false;
+        for (Libro libro : this.libros) {
+            if (libro.getDisponible()) {
+                System.out.println(libro.mostrarInfo());
+                hayLibros = true;
             }
         }
-        if (!hayLibrosDisponibles) {
+        if (!hayLibros) {
             System.out.println("No hay libros disponibles.");
         }
     }
@@ -44,7 +43,7 @@ public class Biblioteca {
 
 
     public boolean agregarLibro (Libro libro) {
-        if (libro.getISBN() == null) {
+        if (libro.getISBN() != null) {
             this.libros.add(libro);
             return true;
         }
@@ -62,23 +61,23 @@ public class Biblioteca {
         return false;
     }
 
-    public String prestarLibro(String titulo) {
+    public boolean prestarLibro(String titulo) {
         Libro libro = buscarLibroPorTitulo(titulo);
         if (libro != null && libro.getDisponible()) {
             libro.prestar();
-            return "Se ha prestado el libro: " + titulo;
+            return true;
         } else {
-            return "El libro no está disponible o no existe.";
+            return false;
         }
     }
 
-    public String devolverLibro(String titulo) {
+    public boolean devolverLibro(String titulo) {
         Libro libro = buscarLibroPorTitulo(titulo);
         if (libro != null) {
             libro.devolver();
-            return "El libro " + titulo + "se ha devuelto exitosamente";
+            return true;
         } else {
-            return "El libro no está disponible o no existe.";
+            return false;
         }
     }
 }
