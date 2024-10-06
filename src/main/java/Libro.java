@@ -64,23 +64,19 @@ public class Libro {
         this.disponible = disponible;
     }
 
-    public void prestar(String isbn) {
-        if (this.isbn.equals(isbn)) {
-            if (this.cantidadDisponible != 0) {
-                this.cantidadDisponible -= 1;
-                if (this.cantidadDisponible == 0) {
-                    this.disponible = false;
-                }
+    public void prestar() {
+        if (cantidadDisponible > 0) {
+            cantidadDisponible--;
+            if (cantidadDisponible == 0) {
+                disponible = false;
             }
         }
     }
 
-    public void devolver(String isbn) {
-        if (this.isbn.equals(isbn)) {
-            this.cantidadDisponible += 1;
-            if (this.cantidadDisponible == 1) {
-                this.disponible = true;
-            }
+    public void devolver() {
+        cantidadDisponible++;
+        if (cantidadDisponible > 0) {
+            disponible = true;
         }
     }
 

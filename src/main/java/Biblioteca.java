@@ -37,5 +37,32 @@ public class Biblioteca {
         }
     }
 
+    public boolean eliminarLibro(String titulo) {
+        Libro libro = this.buscarLibroPorTitulo(titulo);
+        if (libro != null) {
+            this.libros.remove(libro);
+            return true;
+        }
+        return false;
+    }
 
+    public String prestarLibro(String titulo) {
+        Libro libro = buscarLibroPorTitulo(titulo);
+        if (libro != null && libro.getDisponible()) {
+            libro.prestar();
+            return "Se ha prestado el libro: " + titulo;
+        } else {
+            return "El libro no está disponible o no existe.";
+        }
+    }
+
+    public String devolverLibro(String titulo) {
+        Libro libro = buscarLibroPorTitulo(titulo);
+        if (libro != null) {
+            libro.devolver();
+            return "El libro " + titulo + "se ha devuelto exitosamente";
+        } else {
+            return "El libro no está disponible o no existe.";
+        }
+    }
 }
