@@ -9,23 +9,39 @@ public class Biblioteca {
         this.libros = new ArrayList<>();
     }
 
+    public void mostrarLibrosDisponibles() {
+        System.out.println("Libros disponibles en " + nombre + ":");
+        boolean hayLibrosDisponibles = false;
+        for (Libro libro : libros) {
+            if (libro.getCantidadDisponible() > 0) {
+                System.out.println(libro);
+                hayLibrosDisponibles = true;
+            }
+        }
+        if (!hayLibrosDisponibles) {
+            System.out.println("No hay libros disponibles.");
+        }
+    }
+
     public Libro buscarLibroPorTitulo(String titulo) {
         for (Libro libro : this.libros) {
-            if (libro.getTitulo().equals(titulo)) {
+            if (libro.getTitulo().equalsIgnoreCase(titulo)) {
                 return libro;
             }
         }
         return null;
     }
 
-    public Libro buscarLibroPorAutor(String autor) {
+    public ArrayList<Libro> buscarLibroPorAutor(String autor) {
+        ArrayList<Libro> librosDelAutor = new ArrayList<>();
         for (Libro libro : this.libros) {
             if (libro.getAutor().equals(autor)) {
-                return libro;
+                librosDelAutor.add(libro);
             }
         }
-        return null;
+        return librosDelAutor;
     }
+
 
     public boolean agregarLibro (Libro libro) {
         if (libro.getISBN() == null) {

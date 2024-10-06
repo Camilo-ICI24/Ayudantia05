@@ -80,13 +80,11 @@ public class Libro {
         }
     }
 
-    public String mostrarInfo(String isbn) {
-        if (this.isbn.equals(isbn)) {
-            return "Título: "+this.titulo+", Autor: "+this.autor+", Género: "+this.genero+
+    public String mostrarInfo() {
+        return "Título: "+this.titulo+", Autor: "+this.autor+", Género: "+this.genero+
                     ", ISBN: "+this.isbn+ ", Número disponible: " +this.cantidadDisponible+
                     ", Disponible: " +this.disponible;
-        }
-        return null;
+
     }
 
     @Override
