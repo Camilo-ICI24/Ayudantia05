@@ -51,19 +51,19 @@ public class Principal {
     }
 
     public void prestarLibro(Biblioteca biblioteca, String titulo) {
-        System.out.println("Se ha solicitado '" + titulo + "'...");
+        System.out.println("Se ha solicitado el libro '" + titulo + "'...");
         biblioteca.prestarLibro(titulo);
         mostrarLibrosDisponibles(biblioteca);
     }
 
     public void devolverLibro(Biblioteca biblioteca, String titulo) {
-        System.out.println("Se está devolviendo '" + titulo + "'...");
+        System.out.println("Devolviendo '" + titulo + "'...");
         biblioteca.devolverLibro(titulo);
         mostrarLibrosDisponibles(biblioteca);
     }
 
     public void buscarLibroPorTitulo(Biblioteca biblioteca, String titulo) {
-        System.out.println("Buscando '" + titulo + "'...");
+        System.out.println("Buscando...");
         Libro encontrado = biblioteca.buscarLibroPorTitulo(titulo);
         if (encontrado != null) {
             System.out.println("Libro encontrado: " + encontrado.mostrarInfo());
@@ -73,19 +73,19 @@ public class Principal {
     }
 
     public void buscarLibrosPorAutor(Biblioteca biblioteca, String autor) {
-        System.out.println("Buscando libros del autor '" + autor + "'...");
+        System.out.println("Explorando...");
         ArrayList<Libro> librosDelEscritor = biblioteca.buscarLibroPorAutor(autor);
         if (!librosDelEscritor.isEmpty()) {
             for (Libro libro : librosDelEscritor) {
                 System.out.println(libro.mostrarInfo());
             }
         } else {
-            System.out.println("No se encontraron libros del autor '" + autor + "'.");
+            System.out.println("No se encontraron coincidencias");
         }
     }
 
     public void eliminarLibro(Biblioteca biblioteca, String titulo) {
-        System.out.println("Eliminando '" + titulo + "' de la biblioteca...");
+        System.out.println("Eliminando...");
         biblioteca.eliminarLibro(titulo);
         System.out.println("Libro eliminado con éxito");
         System.out.println("Biblioteca actualizada: ");
